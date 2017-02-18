@@ -1,6 +1,5 @@
-from scan import helloscan
+from scan import barcodescan
 
 
 def main():
-      helloscan.scan()
-
+  barcodescan.scan()

@@ -17,7 +17,4 @@ deploy:
     secure: dOSKlCMN/564LXhiVAfutmLog+NAsuFCdpdDb0NggRz9av4PrhEPgUxUt0xGwedepolTnalQ1DeUTgHLACw5Cu79lOTox16dF32vCT/68s5JDRUB9c1uc2uTMzUg8bKnHzZ/DxfA/d08F/xHBiTdGM0sjGvK6Decc2ZdUacc3N57X9KxN2pKhIaj0BpYsjqlu5ovUrN5SfNWRNI7VWQ9MilJlr1xkQdmJ13pdRyLAdJN8tsBFSB+Wbp6DESdLqcdu0HqA8LcvXEYZYR0pMBd+OKC9kJo9zUuQHyww5s5RCV9SXN6ajZe7sj8EImlgAAG/ivh9Gl0Sv4RTuugY/2qXo5lb4OucsOUvCMxsiHbe0Xv5rIjqgKEd9u98eOyIlsIzvwJeSaqi228wtxRJzeC66NJcctNDuN/JHSayPLBsnjdbL3vf6qNrAZJ2ataRK1jOKlMkSmmxkZgqNh/EmQIRIe3IWKWD5AAkLEgRuwChMMBR7AOULpI237VDc4LvE4ifYkrNcA5dOrKSPgNydcoVc/TQpwY2R7tfkj8l8Loi5Ap2UkeUR/EDqv0qR9+kbkWA7S1HCw54MjAJTJP3HjfIqVhB/pJ54xnBoQpezBLyLqsLTBGANz6jM9O4UsAC6wjV3GZmcN60i9TRCBPPoBp4oBOZWekBDc4kpRFW0Qjs6c=
   distributions: 'sdist'
   skip_cleanup: true
-  on:
-    repo: cfranke/scan
-    branch: stable
-    python: '3.5'
+  

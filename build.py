@@ -14,8 +14,10 @@ summary = 'Scan tool'
 url = 'https://github.com/cfranke/scan'
 version = '0.0.1'
 
-default_task = ['clean',  'package']
+default_task = ['clean', 'package']
+
 
 @init
 def initialize(project):
-    project.build_depends_on('mockito')
+  project.build_depends_on('mockito')
+  project.depends_on("httplib2")
