@@ -1,7 +1,7 @@
 from mockito import mock, verify
 import unittest
 
-from scan import barcodescan
+from barcodescan import scan
 
 
 class HelloWorldTest(unittest.TestCase):
