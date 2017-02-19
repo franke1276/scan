@@ -24,4 +24,5 @@ def initialize(project):
   project.depends_on("Flask")
   project.depends_on("gunicorn")
   project.depends_on("flask-sse")
-  project.depends_on("Flask-RQ2")
+  project.depends_on("flask-rq")
+  project.depends_on("Redis")

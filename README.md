@@ -9,7 +9,7 @@ $ pyb
 ```
 
 
-http server for python: http://flask.pocoo.org/
+http server for python: http://~/.pocoo.org/
 
 gunicorn scan:app --worker-class gevent --bind 127.0.0.1:8000
 

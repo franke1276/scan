@@ -1,5 +1,5 @@
-from barcodescan import scan
+from barcodescan import sse
 
 
 def main():
-  scan.scan()
+  sse.scan()
