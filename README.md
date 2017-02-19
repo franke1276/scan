@@ -7,3 +7,11 @@ $ pyb install_dependencies
 
 $ pyb
 ```
+
+
+http server for python: http://flask.pocoo.org/
+
+gunicorn scan:app --worker-class gevent --bind 127.0.0.1:8000
+
+#mac os:
+redis-server /usr/local/etc/redis.conf

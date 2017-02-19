@@ -21,3 +21,6 @@ default_task = ['clean', 'package']
 def initialize(project):
   project.build_depends_on('mockito')
   project.depends_on("httplib2")
+  project.depends_on("Flask")
+  project.depends_on("gunicorn")
+  project.depends_on("flask-sse")
