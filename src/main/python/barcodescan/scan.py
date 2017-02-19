@@ -27,7 +27,7 @@ def put_data():
   return make_response("OK", 200)
 
 def scan():
-  logging.info("Start listen to barcode scanner.")
+  logging.info("Start listen to barcode scanne.")
   while 1:
     line = sys.stdin.readline().rstrip()
     logging.debug("got from scanner: {}".format(line))
