@@ -2,7 +2,6 @@ sudo: false
 language: python
 python:
 - '3.5'
-- pypy
 install:
 - pip install pip pybuilder coveralls --upgrade
 - pyb install_dependencies
