@@ -11,8 +11,7 @@ before_deploy:
   - pyb -X package
   - pwd
   - ls -la
-  - cd $TRAVIS_BUILD_DIR
-  - pwd
+  - cd target
 deploy:
   provider: pypi
   user: cfranke

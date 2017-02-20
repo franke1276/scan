@@ -10,7 +10,7 @@ import json
 template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 template_dir = os.path.join(template_dir, 'templates')
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=template_dir)
 app.config["REDIS_URL"] = "redis://localhost"
 logging.basicConfig(level=logging.DEBUG)
 app.register_blueprint(sse, url_prefix='/stream')
