@@ -12,7 +12,7 @@ description = "Scan tool"
 license = 'APACHE LICENSE, VERSION 2.0'
 summary = 'Scan tool'
 url = 'https://github.com/cfranke/scan'
-version = '0.0.1'
+version = '0.0.2'
 
 default_task = ['clean', 'package']
 
@@ -23,6 +23,5 @@ def initialize(project):
   project.depends_on("httplib2")
   project.depends_on("Flask")
   project.depends_on("gunicorn")
+  project.depends_on("gevent")
   project.depends_on("flask-sse")
-  project.depends_on("flask-rq")
-  project.depends_on("Redis")

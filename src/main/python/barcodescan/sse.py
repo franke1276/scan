@@ -1,4 +1,3 @@
-import sys
 import logging
 from flask import Flask
 from flask import render_template
@@ -10,9 +9,8 @@ import json
 
 app = Flask(__name__)
 app.config["REDIS_URL"] = "redis://localhost"
-app.register_blueprint(sse, url_prefix='/stream')
 logging.basicConfig(level=logging.DEBUG)
-
+app.register_blueprint(sse, url_prefix='/stream')
 
 @app.route("/", methods=['GET'])
 def index():
