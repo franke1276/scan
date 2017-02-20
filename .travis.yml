@@ -9,7 +9,10 @@ script:
 - pyb -X run_unit_tests
 before_deploy:
   - pyb -X package
+  - pwd
+  - ls -la
   - cd $TRAVIS_BUILD_DIR
+  - pwd
 deploy:
   provider: pypi
   user: cfranke

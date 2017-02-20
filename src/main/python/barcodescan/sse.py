@@ -4,8 +4,11 @@ from flask import render_template
 from flask import make_response
 from flask import request
 from flask_sse import sse
-
+import os
 import json
+
+template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+template_dir = os.path.join(template_dir, 'templates')
 
 app = Flask(__name__)
 app.config["REDIS_URL"] = "redis://localhost"
