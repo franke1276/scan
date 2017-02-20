@@ -11,7 +11,7 @@ before_deploy:
   - pyb -X package
   - pwd
   - ls -la
-  - cd target
+  - cd $dir_dist
 deploy:
   provider: pypi
   user: cfranke
