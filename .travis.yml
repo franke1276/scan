@@ -9,6 +9,7 @@ script:
 - pyb -X run_unit_tests
 before_deploy:
   - pyb -X package
+  - cd ~/
 deploy:
   provider: pypi
   user: cfranke
