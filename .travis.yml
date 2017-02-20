@@ -3,12 +3,12 @@ language: python
 python:
 - '3.5'
 install:
-- pip install pip pybuilder coveralls --upgrade
+- pip install pip pybuilder --upgrade
 - pyb install_dependencies
 script:
 - pyb -X run_unit_tests
-after_success:
-- coveralls --verbose
+before_deploy:
+  - pyb -X package
 deploy:
   provider: pypi
   user: cfranke
