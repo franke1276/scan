@@ -25,3 +25,4 @@ def initialize(project):
   project.depends_on("gunicorn")
   project.depends_on("gevent")
   project.depends_on("flask-sse")
+  project.include_directory("src/main/python/barcodescan/templates", ["*.html"])
