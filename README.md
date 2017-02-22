@@ -18,3 +18,6 @@ redis-server /usr/local/etc/redis.conf
 
 
 https://github.com/jezdez/Flask-RQ2
+
+## rpi distro builder
+https://github.com/RPi-Distro/pi-gen
