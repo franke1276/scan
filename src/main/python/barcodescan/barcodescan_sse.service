@@ -3,7 +3,7 @@ Description=barcodescan_sse
 
 [Service]
 Type=simple
-ExecStart=barcodescan_sse
+ExecStart=/venv/bin/barcodescan_sse
 
 [Install]
 WantedBy=multi-user.target
