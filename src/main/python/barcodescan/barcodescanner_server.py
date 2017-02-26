@@ -20,6 +20,7 @@ def index():
 @app.route("/", methods=['PUT'])
 def put_data():
   data_as_json = request.get_json()
+  app.logger.debug("got data: {}".format(data_as_json))
   message = json.dumps({"message": data_as_json["data"]})
   sse.publish(message, type='scans')
   return make_response("OK", 200)

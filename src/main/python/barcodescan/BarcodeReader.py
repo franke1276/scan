@@ -17,6 +17,7 @@ class BarcodeReader(object):
 
   def __init__(self, device):
     self.device = device
+    self.exit = False
     while True:
       try:
         self.file_handler = open(self.device, 'rb')
@@ -26,10 +27,11 @@ class BarcodeReader(object):
         self.logger.info("could not open {}: {}".format(self.device, e))
         time.sleep(5)
 
-
+  def close(self):
+    self.exit = True
   def read_generator(self):
     line = ""
-    while True:
+    while not self.exit:
       buffer = self.file_handler.read(8)
       for c in buffer:
         if c > 0:
