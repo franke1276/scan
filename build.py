@@ -30,4 +30,4 @@ def initialize(project):
   project._package_data.setdefault('barcodescan', []).append('templates/*')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_server.service')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_reader.service')
-  project.version = '%s.%s' % (project.version, os.environ.get('TRAVIS_BUILD_NUMBER', 1))
+  project.version = '{}.{}'.format(project.version, os.environ.get('TRAVIS_BUILD_NUMBER', 1))
