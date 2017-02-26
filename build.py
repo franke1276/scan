@@ -13,7 +13,7 @@ description = "Scan tool"
 license = 'APACHE LICENSE, VERSION 2.0'
 summary = 'Scan tool'
 url = 'https://github.com/cfranke/scan'
-version = '0.0.12'
+version = '0.0.13'
 
 default_task = ['clean', 'package']
 
