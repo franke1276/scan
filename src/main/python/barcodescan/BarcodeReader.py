@@ -1,7 +1,6 @@
 
 import logging
 import time
-from typing import Generator
 
 class BarcodeReader(object):
   hid = {4: 'a', 5: 'b', 6: 'c', 7: 'd', 8: 'e', 9: 'f', 10: 'g', 11: 'h', 12: 'i', 13: 'j', 14: 'k', 15: 'l', 16: 'm',
@@ -26,7 +25,7 @@ class BarcodeReader(object):
         time.sleep(5)
 
 
-  def read_generator(self)  -> Generator[str]:
+  def read_generator(self):
     line = ""
     while True:
       buffer = self.file_handler.read(8)

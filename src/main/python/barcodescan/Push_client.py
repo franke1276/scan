@@ -7,7 +7,7 @@ class Push_client(object):
     self.url = url
     logging.info("Push_client configured to {}".format(self.url))
 
-  def push_data(self, data_to_push) -> None:
+  def push_data(self, data_to_push):
     json_to_send = json.dumps({'data': data_to_push})
     h = httplib2.Http()
     logging.debug("sending {} to server {}".format(data_to_push, self.url))
