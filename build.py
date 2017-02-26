@@ -1,5 +1,5 @@
 from pybuilder.core import init, use_plugin, Author
-
+import os
 use_plugin("python.core")
 use_plugin("python.unittest")
 use_plugin("python.install_dependencies")
@@ -13,7 +13,7 @@ description = "Scan tool"
 license = 'APACHE LICENSE, VERSION 2.0'
 summary = 'Scan tool'
 url = 'https://github.com/cfranke/scan'
-version = '0.0.19'
+version = '0.1'
 
 default_task = ['clean', 'package']
 
@@ -30,3 +30,4 @@ def initialize(project):
   project._package_data.setdefault('barcodescan', []).append('templates/*')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_server.service')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_reader.service')
+  project.version = '%s.%s' % (project.version, os.environ.get('TRAVIS_BUILD_NUMBER', 1))
