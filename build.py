@@ -13,7 +13,7 @@ description = "Scan tool"
 license = 'APACHE LICENSE, VERSION 2.0'
 summary = 'Scan tool'
 url = 'https://github.com/cfranke/scan'
-version = '0.0.13'
+version = '0.0.14'
 
 default_task = ['clean', 'package']
 
@@ -27,5 +27,5 @@ def initialize(project):
   project.depends_on("gevent")
   project.depends_on("flask-sse")
   project._package_data.setdefault('barcodescan', []).append('templates/*')
-  project.install_file('/etc/systemd/system/', 'barcodescan/barcodescan_sse.service')
-  project.install_file('/etc/systemd/system/', 'barcodescan/read_from_scanner.service')
+  project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_server.service')
+  project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_reader.service')
