@@ -21,10 +21,10 @@ class BarcodeReader(object):
     while True:
       try:
         self.file_handler = open(self.device, 'rb')
-        self.logger.warning("Barcode Scanner on  {} started".format(self.device))
+        self.logger.info("Barcode Scanner on  {} started".format(self.device))
         break
       except Exception as e:
-        self.logger.info("could not open {}: {}".format(self.device, e))
+        self.logger.warning("could not open {}: {}".format(self.device, e))
         time.sleep(5)
 
   def close(self):

@@ -6,7 +6,6 @@ import signal
 
 def main():
   reader = BarcodeReader("/dev/hidraw0")
-
   signal.signal(signal.SIGTERM, lambda x: reader.close())
   push_client = Push_client("http://localhost:8000")
   for line in reader.read_generator():
