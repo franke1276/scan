@@ -22,13 +22,15 @@ def read_from_scanner():
     ## Get the character from the HID
     buffer = fp.read(8)
     for c in buffer:
-      if ord(c) > 0:
+      if c > 0:
 
-        if int(ord(c)) == 40:
+        if int(c) == 40:
           yield line
           line = ""
           continue
-        line += hid[int(ord(c))]
+        if int(c) == 2 :
+          continue
+        line += hid[int(c)]
 
 
 def main():
