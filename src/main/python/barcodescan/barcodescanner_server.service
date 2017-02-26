@@ -3,7 +3,7 @@ Description=gets the scanned barcode and send them to a potentialy connedcted we
 
 [Service]
 Type=simple
-ExecStart=/venv/bin/barcodescanner_server /var/log/barcodescanner_server.log 2>&1
+ExecStart=/venv/bin/barcodescanner_server
 
 [Install]
 WantedBy=multi-user.target
