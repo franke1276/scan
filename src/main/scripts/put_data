@@ -1,3 +1,0 @@
-#!/bin/bash
-data=$1
-curl -XPUT http://localhost:8000 -H "Content-Type: application/json" -d "{\"data\": \"$data\"}"

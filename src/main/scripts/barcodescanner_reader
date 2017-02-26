@@ -3,7 +3,7 @@
 
 import sys
 
-from barcodescan.read_from_scanner import main
+from barcodescan.barcodescanner_reader import main
 
 if __name__ == '__main__':
     try:
