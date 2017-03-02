@@ -18,10 +18,14 @@
             crossorigin="anonymous"></script>
     <script>
         var targetContainer = document.getElementById("container");
+
         var source = new EventSource("{{ url_for('sse.stream') }}");
         source.addEventListener('{{event_type}}', function(event) {
             var data = JSON.parse(event.data);
-            $('<p class="lead"/>').text(data.message).appendTo($('#scanns'));
+            var worker = data.message;
+            $('#employee').text(worker.employee);
+            $('#stage').text(worker.stage);
+            $('#jobs').text(worker.jobs);
         }, false);
         source.addEventListener('error', function(event) {
             $('<div/>').css("color", "red").text("connection error from Server").appendTo($('.container'));
@@ -34,8 +38,20 @@
 <body>
 
     <div class="container">
-      <div class="page-header">
-        <h1>Barcode Scanner</h1>
+        <div class="page-header">
+            <h1>Barcode Scanner</h1>
+            <p style="color:lightgray;">{{worker_id}}</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">Mitarbeiter: <strong id="employee">{{employee}}</strong></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">Platz: <strong id="stage">{{stage}}</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" id="jobs">{{jobs}}</div>
+        </div>
+
       </div>
       <div id="scanns"></div>
     </div>
