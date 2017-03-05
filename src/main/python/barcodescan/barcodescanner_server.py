@@ -34,10 +34,26 @@ def index():
   worker_id = app.config["UUID"]
   worker = r.hgetall(worker_id)
   if not worker:
-    worker = {"id": worker_id, "stage": None, "employee": None, "jobs": None}
+    worker = {"id": worker_id}
     r.hmset(worker_id, worker)
-  return render_template('index.html', event_type="scans", worker_id=worker["id"], employee=worker["employee"],
-                         stage=worker["stage"], jobs=worker["jobs"])
+  if not "jobs" in worker:
+    jobs=[]
+  else:
+    jobs = worker["jobs"].split(",")
+
+  if not "stage" in worker:
+    stage="-"
+  else:
+    stage=worker["stage"]
+
+  if not "employee" in worker:
+    employee="-"
+  else:
+    employee=worker["employee"]
+
+
+  return render_template('index.html', event_type="scans", worker_id=worker["id"], employee=employee,
+                         stage=stage, jobs=jobs)
 
 
 @app.route("/", methods=['PUT'])
@@ -47,7 +63,7 @@ def put_data():
   worker_id = app.config["UUID"]
   worker = r.hgetall(worker_id)
   if not worker:
-    worker = {"id": worker_id, "stage": None, "employee": None, "jobs": None}
+    worker = {"id": worker_id}
     r.hmset(worker_id, worker)
 
   splitted_str = last_scan.split('-')
@@ -56,13 +72,11 @@ def put_data():
   if splitted_str[0] == "platz":
     worker["stage"] = splitted_str[1]
   if splitted_str[0] == "a":
-    print("jobs: {}".format(worker["jobs"]))
-    if worker["jobs"] == "None":
-      worker["jobs"] = splitted_str[1]
-    else:
-      worker["jobs"] = worker["jobs"] + "," + splitted_str[1]
-
-  print("worker: {}".format(worker))
+    other_jobs = []
+    if "jobs" in worker:
+      other_jobs=worker["jobs"].split(",")
+    other_jobs.append(splitted_str[1])
+    worker["jobs"]=",".join(set(other_jobs))
   r.hmset(worker_id, worker)
 
   message = json.dumps({"message": worker})

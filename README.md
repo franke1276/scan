@@ -10,6 +10,9 @@ $ pip install pybuilder
 $ pyb install_dependencies
 $ pyb
 ```
+## Run Flask-Server in dev-mode
+    $ export FLASK_DEBUG=1;export FLASK_APP=barcodescan/barcodescanner_server.py;flask run
+
 
 ## Requirements:
 - a runnig Redis server unter localhost
