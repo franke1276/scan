@@ -19,7 +19,9 @@ def generate_or_get_unique_id(file_path):
 
 app = Flask(__name__)
 app.config["REDIS_URL"] = "redis://localhost"
-app.config["UUID"] = generate_or_get_unique_id("/tmp/.barcodescanner")
+home_dir=os.environ['HOME']
+app.logger.info("HOME: {}".format(home_dir))
+app.config["UUID"] = generate_or_get_unique_id(home_dir + "/.barcodescanner")
 logging.basicConfig(level=logging.DEBUG)
 r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
@@ -34,7 +36,6 @@ def index():
   if not worker:
     worker = {"id": worker_id, "stage": None, "employee": None, "jobs": None}
     r.hmset(worker_id, worker)
-  print("worker: {}".format(worker))
   return render_template('index.html', event_type="scans", worker_id=worker["id"], employee=worker["employee"],
                          stage=worker["stage"], jobs=worker["jobs"])
 
@@ -48,8 +49,6 @@ def put_data():
   if not worker:
     worker = {"id": worker_id, "stage": None, "employee": None, "jobs": None}
     r.hmset(worker_id, worker)
-
-  print("worker: {}".format(worker))
 
   splitted_str = last_scan.split('-')
   if splitted_str[0] == "mit":
