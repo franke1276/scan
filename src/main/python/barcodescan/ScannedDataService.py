@@ -21,7 +21,7 @@ class ScannedDataService(object):
     if splitted_str[0] == "a":
       d = dict(old_data)
       d["jobs"].append(splitted_str[1])
-      d["jobs"] = list(set(d["jobs"]))
+      d["jobs"] = sorted(list(set(d["jobs"])))
       return d
 
   def get_worker(self):
