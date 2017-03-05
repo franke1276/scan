@@ -10,7 +10,8 @@ class WorkerDao(object):
   def save(self, id, worker):
     jobs = dict(worker)
     if len(worker["jobs"]) > 0:
-      jobs["jobs"] = ",".join(worker["jobs"])
+      j = [x.replace(",","|||") for x in list(worker["jobs"])]
+      jobs["jobs"] = ",".join(j)
     else:
       jobs.pop("jobs", None)
     self.redis_server.hmset(id, jobs)
@@ -23,7 +24,7 @@ class WorkerDao(object):
     if not worker:
       worker = {"key": key}
     if "jobs" in worker:
-      worker["jobs"] = worker["jobs"].split(",")
+      worker["jobs"] = [x.replace("|||",",") for x in worker["jobs"].split(",")]
     else:
       worker["jobs"] = []
 

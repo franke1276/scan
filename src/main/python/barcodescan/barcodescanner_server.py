@@ -26,6 +26,10 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 dao = WorkerDao(r)
 
 home_dir=os.environ['HOME']
+sse_enabled = True
+if os.environ.get('FLASK_DEBUG') == "1":
+  sse_enabled = False
+
 service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner"), dao)
 
 app.register_blueprint(sse, url_prefix='/stream')
@@ -34,7 +38,7 @@ app.register_blueprint(sse, url_prefix='/stream')
 @app.route("/", methods=['GET'])
 def index():
   worker = service.get_worker()
-  return render_template('index.html', event_type="scans", worker_id=worker["key"], employee=worker.get("employee", "-"),
+  return render_template('index.html', sse_enabled= sse_enabled, event_type="scans", worker_id=worker["key"], employee=worker.get("employee", "-"),
                          stage=worker.get("stage", "-"), jobs=worker.get("jobs", []))
 
 
