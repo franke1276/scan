@@ -19,7 +19,6 @@
     <script>
         var targetContainer = document.getElementById("container");
 
-/*
         var source = new EventSource("{{ url_for('sse.stream') }}");
         source.addEventListener('{{event_type}}', function(event) {
             var data = JSON.parse(event.data);
@@ -31,8 +30,6 @@
         source.addEventListener('error', function(event) {
             $('<div/>').css("color", "red").text("connection error from Server").appendTo($('.container'));
         }, false);
-
-  */
 
 
     </script>
