@@ -10,6 +10,9 @@ import uuid
 import redis
 from barcodescan.WorkerDao import WorkerDao
 from barcodescan.ScannedDataService import ScannedDataService
+from barcodescan.Config import Config
+from barcodescan.Push_client import Push_client
+
 
 def generate_or_get_unique_id(file_path):
   if not os.path.isfile(file_path):
@@ -24,14 +27,14 @@ app.config["REDIS_URL"] = "redis://localhost"
 logging.basicConfig(level=logging.DEBUG)
 r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 dao = WorkerDao(r)
-
 home_dir=os.environ['HOME']
 sse_enabled = True
 if os.environ.get('FLASK_DEBUG') == "1":
   sse_enabled = False
 
-service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner"), dao)
-
+config = Config(home_dir + "/.barcodescanner.cfg")
+push_client = Push_client(config.push_url())
+service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, push_client)
 app.register_blueprint(sse, url_prefix='/stream')
 
 
@@ -52,3 +55,8 @@ def put_data():
   message = json.dumps({"message": worker})
   sse.publish(message, type='scans')
   return make_response("OK", 200)
+
+@app.route("/dummy_endpoint", methods=['PUT'])
+def dummy_endpoint():
+  payload = request.get_json()
+  app.logger.debug("last scan: {}".format(payload))

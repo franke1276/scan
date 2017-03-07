@@ -32,6 +32,7 @@ def initialize(project):
   project.depends_on("itsdangerous")
   project.depends_on("jinja2")
   project.depends_on("werkzeug")
+  project.depends_on("configparser")
   project._package_data.setdefault('barcodescan', []).append('templates/*')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_server.service')
   project.install_file('/etc/systemd/system/', 'barcodescan/barcodescanner_reader.service')

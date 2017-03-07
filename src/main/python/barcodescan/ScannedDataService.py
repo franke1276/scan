@@ -4,11 +4,12 @@ import logging
 class ScannedDataService(object):
   logger = logging.getLogger(__name__)
 
-  def __init__(self, worker_id, worker_dao):
+  def __init__(self, worker_id, worker_dao, push_client):
     if not worker_id:
       raise Exception("id must be set")
     self.worker_dao = worker_dao
     self.worker_id = worker_id
+    self.push_client=push_client
     self.logger.info("worker_id: {}".format(worker_id))
 
   @classmethod
@@ -21,7 +22,6 @@ class ScannedDataService(object):
     if splitted_str[0] == "a":
       d = dict(old_data)
       d["jobs"].append(splitted_str[1])
-      d["jobs"] = sorted(list(set(d["jobs"])))
       return d
 
   def get_worker(self):
@@ -34,7 +34,10 @@ class ScannedDataService(object):
     update_worker = self.extract_and_merge_data(worker, scaned_data)
 
     self.worker_dao.save(self.worker_id, update_worker)
+
+    # self.push_client.push_data(update_worker)
     return update_worker
+
 
 
 

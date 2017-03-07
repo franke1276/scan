@@ -9,7 +9,7 @@ class Push_client(object):
     self.logger.info("Push_client configured to {}".format(self.url))
 
   def push_data(self, data_to_push):
-    json_to_send = json.dumps({'data': data_to_push})
+    json_to_send = json.dumps(data_to_push)
     h = httplib2.Http()
     self.logger.debug("sending {} to server {}".format(data_to_push, self.url))
     (resp_headers, _) = h.request(self.url, body=json_to_send, method="PUT",
