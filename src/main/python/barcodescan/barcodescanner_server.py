@@ -22,26 +22,24 @@ def generate_or_get_unique_id(file_path):
     return f.readlines()[0]
 
 
+home_dir=os.environ['HOME']
+
 app = Flask(__name__)
 app.config["REDIS_URL"] = "redis://localhost"
-logging.basicConfig(level=logging.DEBUG)
-r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
-dao = WorkerDao(r)
-home_dir=os.environ['HOME']
-sse_enabled = True
-if os.environ.get('FLASK_DEBUG') == "1":
-  sse_enabled = False
-
-config = Config(home_dir + "/.barcodescanner.cfg")
-push_client = Push_client(config.push_url())
-service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, push_client)
 app.register_blueprint(sse, url_prefix='/stream')
+
+logging.basicConfig(level=logging.DEBUG)
+
+dao = WorkerDao(redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True))
+config = Config(home_dir + "/.barcodescanner.cfg")
+service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, Push_client(config.push_url()))
 
 
 @app.route("/", methods=['GET'])
 def index():
   worker = service.get_worker()
-  return render_template('index.html', sse_enabled= sse_enabled, event_type="scans", worker_id=worker["key"], employee=worker.get("employee", "-"),
+
+  return render_template('index.html', sse_enabled= not app.debug, event_type="scans", worker_id=worker["key"], employee=worker.get("employee", "-"),
                          stage=worker.get("stage", "-"), jobs=worker.get("jobs", []))
 
 
@@ -60,3 +58,7 @@ def put_data():
 def dummy_endpoint():
   payload = request.get_json()
   app.logger.debug("last scan: {}".format(payload))
+
+
+if __name__ == "__main__":
+  app.run(debug=True, port=8000)

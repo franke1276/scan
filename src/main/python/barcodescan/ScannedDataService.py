@@ -35,7 +35,7 @@ class ScannedDataService(object):
 
     self.worker_dao.save(self.worker_id, update_worker)
 
-    # self.push_client.push_data(update_worker)
+    self.push_client.push_data(update_worker)
     return update_worker
 
 

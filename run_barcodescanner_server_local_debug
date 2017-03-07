@@ -1,0 +1,2 @@
+#!/bin/bash
+export FLASK_DEBUG=1;export FLASK_APP=src/main/python/barcodescan/barcodescanner_server.py;flask run
