@@ -6,20 +6,11 @@ from flask import request
 import os.path
 from flask_sse import sse
 import json
-import uuid
 import redis
 from barcodescan.WorkerDao import WorkerDao
 from barcodescan.ScannedDataService import ScannedDataService
 from barcodescan.Config import Config
 from barcodescan.Push_client import Push_client
-
-
-def generate_or_get_unique_id(file_path):
-  if not os.path.isfile(file_path):
-    with open(file_path, "w") as f:
-      f.write(str(uuid.uuid4()))
-  with open(file_path, "r") as f:
-    return f.readlines()[0]
 
 
 home_dir=os.environ['HOME']
@@ -32,7 +23,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 dao = WorkerDao(redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True))
 config = Config(home_dir + "/.barcodescanner.cfg")
-service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, Push_client(config.server_push_url()))
+service = ScannedDataService(dao, Push_client(config.server_push_url()))
 
 
 @app.route("/", methods=['GET'])
@@ -53,11 +44,6 @@ def put_data():
   message = json.dumps({"message": worker})
   sse.publish(message, type='scans')
   return make_response("OK", 200)
-
-@app.route("/dummy_endpoint", methods=['PUT'])
-def dummy_endpoint():
-  payload = request.get_json()
-  app.logger.debug("last scan: {}".format(payload))
 
 
 if __name__ == "__main__":
