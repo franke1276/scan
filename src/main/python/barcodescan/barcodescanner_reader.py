@@ -1,7 +1,6 @@
 from barcodescan.BarcodeReader import BarcodeReader
 from barcodescan.Push_client import Push_client
 import signal
-import os
 from barcodescan.Config import Config
 
 
