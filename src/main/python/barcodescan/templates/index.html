@@ -23,10 +23,12 @@
         var source = new EventSource("{{ url_for('sse.stream') }}");
         source.addEventListener('{{event_type}}', function(event) {
             var data = JSON.parse(event.data);
+            console.log(JSON.stringify(data));
             var worker = data.message;
             $('#employee').text(worker.employee);
             $('#stage').text(worker.stage);
-            worker.jobs.split(",").forEach(j => $('<li/>').text(j).appendTo($('#jobs')))
+            $('#jobs').contents().remove();
+            worker.jobs.forEach(j => $('<li/>').text(j).appendTo($('#jobs')))
         }, false);
         source.addEventListener('error', function(event) {
             $('<div/>').css("color", "red").text("connection error from Server").appendTo($('.container'));
@@ -57,9 +59,8 @@
             <ul id="jobs">
                 {% for job in jobs %}
                 <li>{{job}}</li>
-                {% else %}
-                <li><em>Keine Aufträge</em>
-                    {% endfor %}
+
+                {% endfor %}
 
             </ul>
         </div>
