@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 dao = WorkerDao(redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True))
 config = Config(home_dir + "/.barcodescanner.cfg")
-service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, Push_client(config.push_url()))
+service = ScannedDataService(generate_or_get_unique_id(home_dir + "/.barcodescanner.id"), dao, Push_client(config.server_push_url()))
 
 
 @app.route("/", methods=['GET'])
