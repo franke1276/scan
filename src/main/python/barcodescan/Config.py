@@ -1,15 +1,16 @@
 import configparser
 import os
+import logging
 
 class Config(object):
-  config_key = "BARCODE_SCANNER"
+  logger = logging.getLogger(__name__)
+
   def __init__(self, path_to_config_file):
     self.config = configparser.ConfigParser()
     self.config["SERVER"] = {}
-    self.config["READER"] = {'push_url': 'http://localhost:8000'}
+    self.config["READER"] = {}
     if not os.path.isfile(path_to_config_file):
-      with open(path_to_config_file, 'w') as configfile:
-        self.config.write(configfile)
+      self.logger.warning("no config file found under: {}".format(path_to_config_file))
     self.config.read(path_to_config_file, "UTF-8")
 
   def server_push_url(self):
